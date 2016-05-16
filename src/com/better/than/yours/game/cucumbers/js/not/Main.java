@@ -1,8 +1,7 @@
 package com.better.than.yours.game.cucumbers.js.not;
 
-import com.better.than.yours.game.cucumbers.js.not.engine.Engine;
-import com.better.than.yours.game.cucumbers.js.not.engine.Rules;
-import com.better.than.yours.game.cucumbers.js.not.models.Board;
+import com.better.than.yours.game.cucumbers.js.not.controllers.GameViewController;
+import com.better.than.yours.game.cucumbers.js.not.display.Display;
 
 public class Main {
     /*
@@ -18,10 +17,9 @@ public class Main {
             second create Cells with given positions;
             Both start game Thread;
      */
+
     public static void main(String[] args) {
-        Rules rules = new Rules(1, 4, 3);
-        Board board = new Board(10, 10);
-        Engine engine = new Engine(board, rules);
-        engine.startGame(40);
+        Display display = new Display();
+        display.run(args);
     }
 }

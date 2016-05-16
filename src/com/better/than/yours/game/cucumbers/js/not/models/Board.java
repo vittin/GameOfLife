@@ -32,6 +32,10 @@ public class Board {
         return height;
     }
 
+    public int getSize(){
+        return width * height;
+    }
+
     public Cell getCell(int id){
         return cellsHashMap.get(id);
     }

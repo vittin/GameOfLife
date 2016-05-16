@@ -23,13 +23,21 @@ public class GameThread implements Runnable {
 
     //main game thread;
     void gameThread(){
+        int pauseTime = 1000;
+        int timeBeforeStable = 400;
         //need change = isRunning is always true, we only kill the Thread;
         while (engine.isRunning){
             engine.checkEach();
             engine.observer.push();
+            engine.view.draw();
             try {
                 System.out.println(engine.getPopulation());
-                Thread.sleep(10);
+                Thread.sleep(timeBeforeStable);
+                engine.view.drawStable();
+                Thread.sleep(pauseTime - timeBeforeStable);
+                if (engine.view != null){
+                    engine.view.refresh();
+                }
             } catch (InterruptedException e) { //why i catch it? Ask Intellij;
                 //show what goes wrong, good idea;
                 e.printStackTrace();

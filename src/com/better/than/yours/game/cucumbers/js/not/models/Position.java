@@ -7,6 +7,7 @@ public class Position {
     //Cell position is related with Board, isn't?
     private Board board;
     private int x, y;
+    private boolean isNew = false;
 
     //Create new Cell Position in Board;
     public Position(int x, int y, Board board){
@@ -25,6 +26,13 @@ public class Position {
         return y;
     }
 
+    public boolean isNew(){
+        return isNew;
+    }
+
+    public void setIsNew(boolean isNew){
+        this.isNew = isNew;
+    }
     //We can't put Cell outside the Board;
     public boolean isValid(){
 

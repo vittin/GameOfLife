@@ -20,6 +20,7 @@ public class BoardObserver {
         Position position = board.getCellPosition(id);
         int difference = (reviveEvent) ? 1 : -1;
         changeStatusMap.put(id, reviveEvent);
+        System.out.println(changeStatusMap.containsKey(board.generateCellId(new Position(5, 32, board))));
         for (int i = 0; i < 8; i++){
             Cell cell =  board.getNextNeighbor(position, i);
             if (cell != null){
@@ -33,23 +34,25 @@ public class BoardObserver {
         HashMap<Integer, Boolean> changeStatusMap = new HashMap<>(this.changeStatusMap);
         for (Map.Entry<Integer, Boolean> entry : changeStatusMap.entrySet()){
             int id = entry.getKey();
-            this.changeStatusMap.remove(id);
             boolean value = entry.getValue();
             Cell cell = board.getCell(id);
             if (cell != null){
                 cell.setLivingStatus(value);
             }
         }
+
         HashMap<Integer, Integer> toCallMap = new HashMap<>(this.toCallMap);
         for (Map.Entry<Integer, Integer> entry : toCallMap.entrySet()){
             int id = entry.getKey();
-            this.toCallMap.remove(id);
             Cell cell = board.getCell(id);
             if (cell != null){
                 int currentNeighbors = cell.getLivingNeighbours();
                 cell.updateNumberOfNeighbors(currentNeighbors + entry.getValue());
             }
         }
+
+        this.changeStatusMap = new HashMap<>();
+        this.toCallMap = new HashMap<>();
 
     }
     void deleteCell(int id){

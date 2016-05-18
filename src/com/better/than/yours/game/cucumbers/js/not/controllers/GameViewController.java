@@ -1,6 +1,7 @@
 package com.better.than.yours.game.cucumbers.js.not.controllers;
 
 import com.better.than.yours.game.cucumbers.js.not.display.Display;
+import com.better.than.yours.game.cucumbers.js.not.engine.Engine;
 import com.better.than.yours.game.cucumbers.js.not.models.Position;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public class GameViewController {
     private HashMap<Integer, Position> actualIds;
     private HashSet<Position> prevRedraw;
     private HashSet<Position> actualRedraw;
+    private Engine engine;
     public GameViewController(Display display){
         this.display = display;
         this.prevIds = new HashMap<>();
@@ -29,25 +31,36 @@ public class GameViewController {
             position.setIsNew(true);
             actualRedraw.add(position);
         }
+        System.out.println(position.getX() + ", " + position.getY());
         actualIds.put(id, position);
     }
 
     public void draw() {
         prevIds.forEach((k, v) ->
-                display.draw(v.getX(), v.getY(), v.isNew()));
+                display.draw(v.getX(), v.getY()));
     }
 
     public void drawStable() {
-        prevRedraw.forEach((e) ->
-                display.draw(e.getX(), e.getY(), false)
-        );
+//        prevRedraw.forEach((e) ->
+//                display.draw(e.getX(), e.getY(), false)
+//        );
     }
 
+    public void exit(){
+        engine.endGame();
+    }
+
+    public void setEngine(Engine engine){
+        this.engine = engine;
+    }
     public void refresh() {
-        display.clear();
         prevIds = new HashMap<>(actualIds);
         actualIds = new HashMap<>();
         prevRedraw = new HashSet<>(actualRedraw);
         actualRedraw = new HashSet<>();
+    }
+
+    public void clear() {
+        display.clear();
     }
 }

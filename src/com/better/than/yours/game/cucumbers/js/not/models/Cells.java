@@ -6,8 +6,6 @@ package com.better.than.yours.game.cucumbers.js.not.models;
 public interface Cells {
     //return Cell status;
     boolean isAlive();
-    //return number of Living neighbours;
-    int getLivingNeighbours();
     //kill Cell
     void kill();
     //revive Cell;

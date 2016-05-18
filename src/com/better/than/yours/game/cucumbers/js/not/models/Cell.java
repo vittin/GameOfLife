@@ -22,7 +22,6 @@ public class Cell implements Cells {
         this.livingStatus = false;
 
         if (!position.isValid()){
-
             throw new WrongPositionException("X or Y coordinate is outside the map");
         }
 
@@ -31,35 +30,29 @@ public class Cell implements Cells {
 
 
     public void setId(int id){
-
         this.id = id;
     }
     public int getId(){
-
         return this.id;
     }
 
     //method which is responsible for linking Cell with Observer, always should be called;
     public void setObserver(BoardObserver observer){
-
         this.observer = observer;
     }
 
     //inform BoardObserver when Cell is born (pass true), or is dies(false);
     public void notifyObserver(boolean isReviveEvent){
-
         this.observer.update(id, isReviveEvent);
     }
 
     @Override
     public boolean isAlive() {
-
         return livingStatus;
     }
 
     //because rules of the game, the revieve / kill event must be delegated to the end of tour;
     public void setLivingStatus(boolean livingStatus){
-
         this.livingStatus = livingStatus;
     }
 
@@ -76,28 +69,20 @@ public class Cell implements Cells {
         notifyObserver(true);
     }
 
-    @Override
     public int getLivingNeighbours() {
-
         return neighbors;
     }
 
-    //boardObserver call this method;
-    void updateNumberOfNeighbors(int neighbors){
+    public void setLivingNeighbours(int neighbors){
         this.neighbors = neighbors;
-        oracle();
     }
 
     //delete unused cells (unused => if they hasn't got any living neighbors)
     void oracle(){
-
         if (this.neighbors < 1){
-
-            if (isAlive()){
-                notifyObserver(false);
+            if (!isAlive()){
+                observer.deleteCell(id);
             }
-
-            observer.deleteCell(id);
         }
     }
 

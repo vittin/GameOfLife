@@ -22,66 +22,62 @@ public class Board {
         this.cellFactory = new CellFactory();
     }
     public void passObserver(BoardObserver observer){
+
         cellFactory.passObserver(observer);
     }
     public int getWidth() {
+
         return width;
     }
 
     public int getHeight() {
+
         return height;
     }
 
     public int getSize(){
+
         return width * height;
     }
 
     public Cell getCell(int id){
+
         return cellsHashMap.get(id);
     }
 
     public HashMap<Integer, Cell> getCells(){
+
         return cellsHashMap;
     }
 
-    public void setCells(HashMap<Integer, Cell> cellsHashMap){
-        this.cellsHashMap = cellsHashMap;
-    }
-
-    public void addCell(Integer id, Cell cell, boolean isAlive) {
+    void addCell(Integer id, Cell cell) {
         cellsHashMap.put(id, cell);
-        if(isAlive){
-            cell.revive();
-        }
     }
-    public Cell createCell(Position position, boolean isAlive){
-        Cell cell = cellFactory.makeCell(position);
-        int id = setCellId(cell);
+    public Cell createCell(Position position){
+        Cell cell;
+        int id = generateCellId(position);
         if (cellsHashMap.containsKey(id)){
-            cell = cellsHashMap.get(id);
-            if (isAlive && !cell.isAlive()){
-                cell.revive();
-            }
+            cell = null;
         } else{
-            addCell(id, cell, isAlive);
+            cell = cellFactory.makeCell(position);
+            cell.setId(id);
+            addCell(id, cell);
         }
         return cell;
     }
-    int setCellId(Cell cell){
-        int id = getWidth() * cell.position.getY() + cell.position.getX();
-        cell.setId(id);
-        return id;
-    }
 
     public void removeCell(Integer id){
+
         cellsHashMap.remove(id);
     }
 
     public int generateCellId(Position position){
+
         return getWidth() * position.getY() + position.getX();
     }
 
-    void setCellId(Cell cell, int id){
+    void setCellId(Cell cell, int id) {
+
         cell.setId(id);
     }
     Position getCellPosition(int CellId){
@@ -89,7 +85,7 @@ public class Board {
 
     }
 
-    Cell getNextNeighbor(Position position, int whichNeighbor){
+    public Cell getNextNeighbor(Position position, int whichNeighbor){
         int[] xCoords = {-1, 0, 1, -1, 1, -1, 0, 1};
         int[] yCoords = {-1, -1, -1, 0, 0, 1, 1, 1};
         int thatX = position.getX();
@@ -101,8 +97,7 @@ public class Board {
             int id = generateCellId(newPosition);
             Cell cell = getCell(id);
             if (cell == null){
-                cell = createCell(newPosition, false);
-                //cell.updateNumberOfNeighbors(1);
+                cell = createCell(newPosition);
             }
             return cell;
         }

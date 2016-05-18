@@ -40,7 +40,7 @@ public class BoardTest {
     public void addCell() throws Exception {
         board.passObserver(observer);
         Position position = new Position(2,1, board);
-        Cell cell = board.createCell(position, true);
+        Cell cell = board.createCell(position);
         assertEquals(9, board.getCells().size());
         assertEquals(1, cell.position.getY());
     }
@@ -59,14 +59,14 @@ public class BoardTest {
     public void isAlive()  {
         board.passObserver(observer);
         Position position = new Position(2,1, board);
-        Cell cell = board.createCell(position, true);
+        Cell cell = board.createCell(position);
         observer.push();
         assertTrue(cell.isAlive());
     }
     @Test
     public void isNotAlive() {
         Position position = new Position(2,1, board);
-        Cell cell = board.createCell(position, false);
+        Cell cell = board.createCell(position);
         assertFalse(cell.isAlive());
     }
 
@@ -87,8 +87,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
         Position position2 = new Position(9,6, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         assertEquals(cell1, board.getCell(cell1.getId()));
         assertEquals(cell2, board.getCell(cell2.getId()));
     }
@@ -99,8 +99,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position = new Position(2,1, board);
         Position position2 = new Position(5,7, board);
-        Cell cell2 = board.createCell(position2, true);
-        Cell cell = board.createCell(position, true);
+        Cell cell2 = board.createCell(position2);
+        Cell cell = board.createCell(position);
         assertEquals(18, board.getCells().size());
     }
 
@@ -110,8 +110,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(3,4, board);
         Position position2 = new Position(8,6, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         assertEquals(18, board.getCells().size());
     }
 
@@ -121,8 +121,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position = new Position(2,1, board);
         Position position2 = new Position(2,2, board);
-        Cell cell2 = board.createCell(position2, true);
-        Cell cell = board.createCell(position, true);
+        Cell cell2 = board.createCell(position2);
+        Cell cell = board.createCell(position);
         assertEquals(12, board.getCells().size());
     }
 
@@ -132,8 +132,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
         Position position2 = new Position(2,1, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         assertEquals(9, board.getCells().size());
     }
 
@@ -143,8 +143,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
         Position position2 = new Position(2,-1, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
     }
 
     //add two cells, kill one of them. Did cell (which is killing) remove its dead neighbors?
@@ -153,8 +153,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
         Position position2 = new Position(8,6, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         cell1.kill();
         observer.push();
         board.removeCell(cell1.getId());
@@ -167,8 +167,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
         Position position2 = new Position(2,2, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         observer.push();
         assertEquals(1, cell1.getLivingNeighbours());
         assertEquals(1, cell2.getLivingNeighbours());
@@ -185,13 +185,13 @@ public class BoardTest {
         Position position5 = new Position(2,3, board);
 
         //cells which contain squere;
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
-        Cell cell3 = board.createCell(position3, true);
-        Cell cell4 = board.createCell(position4, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
+        Cell cell3 = board.createCell(position3);
+        Cell cell4 = board.createCell(position4);
 
         //neighbour for cell 2 and 4;
-        Cell cell5 = board.createCell(position5, true);
+        Cell cell5 = board.createCell(position5);
         observer.push();
 
         //now 2 and 4 should have 4 neighbours;
@@ -209,10 +209,10 @@ public class BoardTest {
     public void removeCell() throws Exception {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
-        Cell cell1 = board.createCell(position1, true);
+        Cell cell1 = board.createCell(position1);
         cell1.kill();
         observer.push();
-        cell1.oracle();
+        //cell1.oracle();
         assertEquals(0, board.getCells().size());
     }
     //BAD PLACE - CANNOT FINISH WITHOUT ENGINE
@@ -234,7 +234,7 @@ public class BoardTest {
     public void getCellPosition() throws Exception {
         board.passObserver(observer);
         Position position1 = new Position(2,1, board);
-        Cell cell1 = board.createCell(position1, true);
+        Cell cell1 = board.createCell(position1);
         assertEquals(cell1.position, position1);
     }
 
@@ -244,8 +244,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(3,4, board);
         Position position2 = new Position(4,5, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         Cell cell3 = board.getNextNeighbor(position1, 7);
         assertEquals(cell2, cell3);
     }
@@ -256,8 +256,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(3,4, board);
         Position position2 = new Position(2,3, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         Cell cell3 = board.getNextNeighbor(position1, 0);
         assertEquals(cell2, cell3);
     }
@@ -268,8 +268,8 @@ public class BoardTest {
         board.passObserver(observer);
         Position position1 = new Position(3,4, board);
         Position position2 = new Position(3,3, board);
-        Cell cell1 = board.createCell(position1, true);
-        Cell cell2 = board.createCell(position2, true);
+        Cell cell1 = board.createCell(position1);
+        Cell cell2 = board.createCell(position2);
         Cell cell3 = board.getNextNeighbor(position1, 0);
         assertNotEquals(cell2, cell3);
     }

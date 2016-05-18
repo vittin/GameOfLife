@@ -18,9 +18,10 @@ public class createGameController {
 
     public static void startGame(Display display){
         checkVariables();
-        GameViewController gameController = new GameViewController(display);
         Engine engine = new Engine(board, rules);
+        GameViewController gameController = new GameViewController(display);
         engine.passView(gameController);
+        gameController.setEngine(engine);
         engine.startGame(startPopulation);
     }
 
@@ -57,8 +58,18 @@ public class createGameController {
             positions[10] = new Position(7,29, board);
             positions[11] = new Position(9,30, board);
 
+        } else if (name.equals("acorn")){
+            positions = new Position[7];
+            positions[0] = new Position(30,25, board);
+            positions[1] = new Position(30,27, board);
+            positions[2] = new Position(29,27, board);
+            positions[3] = new Position(32,26, board);
+            positions[4] = new Position(33,27, board);
+            positions[5] = new Position(34,27, board);
+            positions[6] = new Position(35,27, board);
+
         } else if(name.equals("all")) {
-            positions = new Position[30];
+            positions = new Position[37];
             //glider
             positions[0] = new Position(35,21, board);
             positions[1] = new Position(35,23, board);
@@ -100,13 +111,13 @@ public class createGameController {
             positions[29] = new Position(9,30, board);
 
             //final test, acorn
-//            positions[30] = new Position(30,5, board);
-//            positions[31] = new Position(30,7, board);
-//            positions[32] = new Position(29,7, board);
-//            positions[33] = new Position(32,6, board);
-//            positions[34] = new Position(33,7, board);
-//            positions[35] = new Position(34,7, board);
-//            positions[36] = new Position(35,7, board);
+            positions[30] = new Position(30,5, board);
+            positions[31] = new Position(30,7, board);
+            positions[32] = new Position(29,7, board);
+            positions[33] = new Position(32,6, board);
+            positions[34] = new Position(33,7, board);
+            positions[35] = new Position(34,7, board);
+            positions[36] = new Position(35,7, board);
 
         } else {
             startGame(display);

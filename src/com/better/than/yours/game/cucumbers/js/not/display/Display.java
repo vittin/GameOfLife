@@ -1,10 +1,10 @@
 package com.better.than.yours.game.cucumbers.js.not.display;
 
 
+import com.better.than.yours.game.cucumbers.js.not.controllers.GameViewController;
 import com.better.than.yours.game.cucumbers.js.not.controllers.createGameController;
 import com.better.than.yours.game.cucumbers.js.not.factories.ElementFactory;
 import javafx.application.*;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -17,7 +17,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * Created by mati on 2016-05-14.
@@ -27,6 +26,8 @@ public class Display extends Application {
     private Stage primaryStage;
     private GraphicsContext gc;
     private int mapSize;
+    private GameViewController gameController;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -75,7 +76,19 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+
+
+    @Override
+    public void stop(){
+        gameController.exit();
+    }
+
+    public void setController(GameViewController gameController){
+        this.gameController = gameController;
+    }
+
     public void run(String[] args) {
+
         launch(args);
     }
 
@@ -85,7 +98,7 @@ public class Display extends Application {
         System.out.println(mapSize + " " + populationPercentage);
         this.mapSize = mapSize;
         createGameController.setBoard(mapSize, mapSize);
-        double populationMultiplier = populationPercentage / 100;
+        double populationMultiplier = (double) populationPercentage / 100;
         createGameController.setStartPopulation(populationMultiplier);
         Canvas canvas = new Canvas(mapSize * 10, mapSize * 10);
         this.gc = canvas.getGraphicsContext2D();
@@ -94,20 +107,19 @@ public class Display extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         //createGameController.startGame(this);
-        createGameController.startGame(this, "spaceship");
+        createGameController.startGame(this);
 
     }
 
-    public void draw(int x, int y, boolean status) {
-        if (status){
-            gc.setFill(Color.ORANGE);
-        } else {
-            gc.setFill(Color.BLACK);
-        }
+    public void draw(int x, int y) {
+
+        gc.setFill(Color.BLACK);
         gc.fillRect(x * 10, y * 10, 10, 10);
 
     }
-    public void clear() {
+
+    public void clear(){
+
         gc.clearRect(0, 0, mapSize * 10, mapSize * 10);
     }
 }

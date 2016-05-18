@@ -5,10 +5,8 @@ import com.better.than.yours.game.cucumbers.js.not.models.BoardObserver;
 import com.better.than.yours.game.cucumbers.js.not.models.Cell;
 import com.better.than.yours.game.cucumbers.js.not.models.Position;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 
 /**

@@ -27,6 +27,7 @@ public class Display extends Application {
     private GraphicsContext gc;
     private int mapSize;
     private GameViewController gameController;
+    private int cellSize;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -40,7 +41,7 @@ public class Display extends Application {
         grid.setVgap(10);
         grid.setHgap(70);
         //map size slider and label;
-        Slider mapSizeSlider = ElementFactory.makeSlider(0, 100, 100, 100, 5);
+        Slider mapSizeSlider = ElementFactory.makeSlider(0, 200, 100, 100, 5);
         Label mapSizeLabel = new Label("Choose map size: ");
         grid.add(mapSizeLabel, 0, 0);
         grid.add(mapSizeSlider, 1, 0);
@@ -95,17 +96,17 @@ public class Display extends Application {
     private void InitializeGame(int mapSize, int populationPercentage) {
         //canvas
         System.out.println("Game started");
-        System.out.println(mapSize + " " + populationPercentage);
         this.mapSize = mapSize;
         createGameController.setBoard(mapSize, mapSize);
         double populationMultiplier = (double) populationPercentage / 100;
         createGameController.setStartPopulation(populationMultiplier);
-        Canvas canvas = new Canvas(mapSize * 10, mapSize * 10);
+        Canvas canvas = new Canvas(1000, 1000);
         this.gc = canvas.getGraphicsContext2D();
         root.getChildren().add(canvas);
-        Scene scene = new Scene(root, mapSize * 10, mapSize * 10);
+        Scene scene = new Scene(root, 1000, 1000);
         primaryStage.setScene(scene);
         primaryStage.show();
+        this.cellSize = (int) (1000 / (double) mapSize) + 1;
         //createGameController.startGame(this);
         createGameController.startGame(this);
 
@@ -114,12 +115,12 @@ public class Display extends Application {
     public void draw(int x, int y) {
 
         gc.setFill(Color.BLACK);
-        gc.fillRect(x * 10, y * 10, 10, 10);
+        gc.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
 
     }
 
     public void clear(){
 
-        gc.clearRect(0, 0, mapSize * 10, mapSize * 10);
+        gc.clearRect(0, 0, 1000, 1000);
     }
 }

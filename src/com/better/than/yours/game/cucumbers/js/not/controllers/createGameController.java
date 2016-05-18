@@ -22,6 +22,7 @@ public class createGameController {
         GameViewController gameController = new GameViewController(display);
         engine.passView(gameController);
         gameController.setEngine(engine);
+        display.setController(gameController);
         engine.startGame(startPopulation);
     }
 

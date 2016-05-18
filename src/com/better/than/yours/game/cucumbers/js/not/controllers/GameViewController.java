@@ -31,7 +31,6 @@ public class GameViewController {
             position.setIsNew(true);
             actualRedraw.add(position);
         }
-        System.out.println(position.getX() + ", " + position.getY());
         actualIds.put(id, position);
     }
 
